@@ -42,6 +42,19 @@ export const TodayMenu = () => {
     }
   };
 
+  const handleRegenerateMenu = async () => {
+    try {
+      setGenerating(true);
+      setError('');
+      const data = await menuService.regenerateMenu();
+      setMenu(data);
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Gagal regenerate menu. Silakan coba lagi.');
+    } finally {
+      setGenerating(false);
+    }
+  };
+
   useEffect(() => {
     fetchMenu();
   }, []);
@@ -124,70 +137,181 @@ export const TodayMenu = () => {
           )}
 
           {menu ? (
-            <div className="space-y-6">
+            <div className="space-y-8">
               {/* Breakfast */}
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <div className="flex items-center mb-4">
-                  <span className="text-3xl mr-3">🌅</span>
-                  <h2 className="text-2xl font-bold text-gray-900">Sarapan</h2>
+              <div className="bg-white rounded-xl shadow-lg p-6 border-t-4 border-orange-400">
+                <div className="flex items-center mb-6">
+                  <span className="text-4xl mr-3">🌅</span>
+                  <h2 className="text-3xl font-bold text-gray-900">Sarapan</h2>
                 </div>
-                <h3 className="text-xl font-semibold text-green-600 mb-2">{menu.breakfast.menu}</h3>
-                <p className="text-gray-700 font-medium mb-1">📍 {menu.breakfast.restaurant}</p>
-                <p className="text-gray-600 mb-4">{menu.breakfast.address}</p>
-                <button
-                  onClick={() => viewOnMap(menu.breakfast)}
-                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded font-medium"
-                >
-                  🗺️ Lihat di Peta
-                </button>
+
+                {/* Main Recommendation */}
+                <div className="bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg p-5 mb-4 border-2 border-orange-200">
+                  <div className="flex items-center mb-2">
+                    <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                      ⭐ REKOMENDASI UTAMA
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-green-600 mb-2">{menu.breakfast.main.menu}</h3>
+                  <p className="text-gray-700 font-medium mb-1">📍 {menu.breakfast.main.restaurant}</p>
+                  <p className="text-gray-600 mb-3 text-sm">{menu.breakfast.main.address}</p>
+                  <button
+                    onClick={() => viewOnMap(menu.breakfast.main)}
+                    className="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg font-semibold shadow-md transform hover:scale-105 transition-all"
+                  >
+                    🗺️ Lihat di Peta
+                  </button>
+                </div>
+
+                {/* Alternatives */}
+                <div className="mt-4">
+                  <h4 className="text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wide">
+                    Pilihan Lain:
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {menu.breakfast.alternatives.map((alt, index) => (
+                      <div key={index} className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-green-300 hover:shadow-md transition-all">
+                        <h4 className="font-bold text-gray-800 mb-1">{alt.menu}</h4>
+                        <p className="text-sm text-gray-600 mb-1">📍 {alt.restaurant}</p>
+                        <p className="text-xs text-gray-500 mb-2">{alt.address}</p>
+                        <button
+                          onClick={() => viewOnMap(alt)}
+                          className="text-green-600 hover:text-green-700 text-sm font-semibold"
+                        >
+                          🗺️ Lihat Peta
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               {/* Lunch */}
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <div className="flex items-center mb-4">
-                  <span className="text-3xl mr-3">☀️</span>
-                  <h2 className="text-2xl font-bold text-gray-900">Makan Siang</h2>
+              <div className="bg-white rounded-xl shadow-lg p-6 border-t-4 border-blue-400">
+                <div className="flex items-center mb-6">
+                  <span className="text-4xl mr-3">☀️</span>
+                  <h2 className="text-3xl font-bold text-gray-900">Makan Siang</h2>
                 </div>
-                <h3 className="text-xl font-semibold text-green-600 mb-2">{menu.lunch.menu}</h3>
-                <p className="text-gray-700 font-medium mb-1">📍 {menu.lunch.restaurant}</p>
-                <p className="text-gray-600 mb-4">{menu.lunch.address}</p>
-                <button
-                  onClick={() => viewOnMap(menu.lunch)}
-                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded font-medium"
-                >
-                  🗺️ Lihat di Peta
-                </button>
+
+                {/* Main Recommendation */}
+                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg p-5 mb-4 border-2 border-blue-200">
+                  <div className="flex items-center mb-2">
+                    <span className="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                      ⭐ REKOMENDASI UTAMA
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-green-600 mb-2">{menu.lunch.main.menu}</h3>
+                  <p className="text-gray-700 font-medium mb-1">📍 {menu.lunch.main.restaurant}</p>
+                  <p className="text-gray-600 mb-3 text-sm">{menu.lunch.main.address}</p>
+                  <button
+                    onClick={() => viewOnMap(menu.lunch.main)}
+                    className="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg font-semibold shadow-md transform hover:scale-105 transition-all"
+                  >
+                    🗺️ Lihat di Peta
+                  </button>
+                </div>
+
+                {/* Alternatives */}
+                <div className="mt-4">
+                  <h4 className="text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wide">
+                    Pilihan Lain:
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {menu.lunch.alternatives.map((alt, index) => (
+                      <div key={index} className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-green-300 hover:shadow-md transition-all">
+                        <h4 className="font-bold text-gray-800 mb-1">{alt.menu}</h4>
+                        <p className="text-sm text-gray-600 mb-1">📍 {alt.restaurant}</p>
+                        <p className="text-xs text-gray-500 mb-2">{alt.address}</p>
+                        <button
+                          onClick={() => viewOnMap(alt)}
+                          className="text-green-600 hover:text-green-700 text-sm font-semibold"
+                        >
+                          🗺️ Lihat Peta
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               {/* Dinner */}
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <div className="flex items-center mb-4">
-                  <span className="text-3xl mr-3">🌙</span>
-                  <h2 className="text-2xl font-bold text-gray-900">Makan Malam</h2>
+              <div className="bg-white rounded-xl shadow-lg p-6 border-t-4 border-purple-400">
+                <div className="flex items-center mb-6">
+                  <span className="text-4xl mr-3">🌙</span>
+                  <h2 className="text-3xl font-bold text-gray-900">Makan Malam</h2>
                 </div>
-                <h3 className="text-xl font-semibold text-green-600 mb-2">{menu.dinner.menu}</h3>
-                <p className="text-gray-700 font-medium mb-1">📍 {menu.dinner.restaurant}</p>
-                <p className="text-gray-600 mb-4">{menu.dinner.address}</p>
-                <button
-                  onClick={() => viewOnMap(menu.dinner)}
-                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded font-medium"
-                >
-                  🗺️ Lihat di Peta
-                </button>
+
+                {/* Main Recommendation */}
+                <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-5 mb-4 border-2 border-purple-200">
+                  <div className="flex items-center mb-2">
+                    <span className="bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                      ⭐ REKOMENDASI UTAMA
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-green-600 mb-2">{menu.dinner.main.menu}</h3>
+                  <p className="text-gray-700 font-medium mb-1">📍 {menu.dinner.main.restaurant}</p>
+                  <p className="text-gray-600 mb-3 text-sm">{menu.dinner.main.address}</p>
+                  <button
+                    onClick={() => viewOnMap(menu.dinner.main)}
+                    className="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg font-semibold shadow-md transform hover:scale-105 transition-all"
+                  >
+                    🗺️ Lihat di Peta
+                  </button>
+                </div>
+
+                {/* Alternatives */}
+                <div className="mt-4">
+                  <h4 className="text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wide">
+                    Pilihan Lain:
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {menu.dinner.alternatives.map((alt, index) => (
+                      <div key={index} className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-green-300 hover:shadow-md transition-all">
+                        <h4 className="font-bold text-gray-800 mb-1">{alt.menu}</h4>
+                        <p className="text-sm text-gray-600 mb-1">📍 {alt.restaurant}</p>
+                        <p className="text-xs text-gray-500 mb-2">{alt.address}</p>
+                        <button
+                          onClick={() => viewOnMap(alt)}
+                          className="text-green-600 hover:text-green-700 text-sm font-semibold"
+                        >
+                          🗺️ Lihat Peta
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
 
-              {/* Generate New Menu */}
-              <div className="text-center mt-8">
-                <button
-                  onClick={handleGenerateMenu}
-                  disabled={generating}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium disabled:bg-gray-400"
-                >
-                  {generating ? '🤖 Generating Menu Baru...' : '✨ Generate Menu Baru'}
-                </button>
-                <p className="text-sm text-gray-500 mt-2">
-                  Generate menu baru sesuai preferensi Anda
-                </p>
+              {/* Regenerate Menu */}
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 rounded-xl p-6 mt-8">
+                <div className="text-center">
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">
+                    🎲 Ingin Menu yang Berbeda?
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    AI kami dapat membuat berbagai rekomendasi unik! Klik tombol di bawah untuk mendapatkan pilihan menu yang benar-benar berbeda.
+                  </p>
+                  <button
+                    onClick={handleRegenerateMenu}
+                    disabled={generating}
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 transition-all duration-200 shadow-lg"
+                  >
+                    {generating ? (
+                      <>
+                        <span className="inline-block animate-spin mr-2">🔄</span>
+                        Sedang Generate Ulang...
+                      </>
+                    ) : (
+                      <>
+                        <span className="mr-2">✨</span>
+                        Generate Menu Berbeda
+                      </>
+                    )}
+                  </button>
+                  <p className="text-xs text-gray-500 mt-3">
+                    💡 Tip: Setiap generate akan menghasilkan kombinasi restoran dan menu yang unik!
+                  </p>
+                </div>
               </div>
             </div>
           ) : !error && (

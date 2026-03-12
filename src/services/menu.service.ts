@@ -16,4 +16,9 @@ export const menuService = {
     const response = await api.post<DailyMenu>('/menu/generate');
     return response.data;
   },
+
+  async regenerateMenu(): Promise<DailyMenu> {
+    const response = await api.post<DailyMenu>('/menu/regenerate');
+    return response.data;
+  },
 };

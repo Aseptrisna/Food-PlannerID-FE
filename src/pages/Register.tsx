@@ -70,22 +70,22 @@ export const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl w-full flex bg-white rounded-2xl shadow-2xl overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 flex items-center justify-center py-6 sm:py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl w-full flex bg-white rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden">
         {/* Left Side - Registration Form */}
-        <div className="w-full lg:w-1/2 p-12">
+        <div className="w-full lg:w-1/2 p-6 sm:p-8 md:p-10 lg:p-12">
           <div className="max-w-md mx-auto">
             {/* Logo Mobile */}
-            <div className="lg:hidden text-center mb-8">
-              <div className="text-6xl mb-4">🍽️</div>
-              <h2 className="text-3xl font-bold text-gray-900">FoodPlannerID</h2>
+            <div className="lg:hidden text-center mb-6 sm:mb-8">
+              <div className="text-5xl sm:text-6xl mb-3 sm:mb-4">🍽️</div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">FoodPlannerID</h2>
             </div>
 
-            <div className="mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">
+            <div className="mb-6 sm:mb-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
                 Buat Akun Baru
               </h2>
-              <p className="text-gray-600">
+              <p className="text-sm sm:text-base text-gray-600">
                 Sudah punya akun?{' '}
                 <Link to="/login" className="text-blue-600 hover:text-blue-700 font-semibold">
                   Masuk di sini

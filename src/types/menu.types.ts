@@ -6,12 +6,17 @@ export interface MealItem {
   longitude: number;
 }
 
+export interface MealTimeMenu {
+  main: MealItem;
+  alternatives: MealItem[];
+}
+
 export interface DailyMenu {
   _id: string;
   date: string;
-  breakfast: MealItem;
-  lunch: MealItem;
-  dinner: MealItem;
+  breakfast: MealTimeMenu;
+  lunch: MealTimeMenu;
+  dinner: MealTimeMenu;
   generated_by?: string;
   created_at: string;
 }

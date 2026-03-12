@@ -27,10 +27,10 @@ export const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-400 via-green-500 to-green-600 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl w-full flex bg-white rounded-2xl shadow-2xl overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-green-400 via-green-500 to-green-600 flex items-center justify-center py-6 sm:py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl w-full flex bg-white rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden">
         {/* Left Side - Illustration */}
-        <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-green-500 to-green-600 p-12 items-center justify-center">
+        <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-green-500 to-green-600 p-8 xl:p-12 items-center justify-center">
           <div className="text-white text-center">
             <div className="text-8xl mb-6 animate-bounce">🍽️</div>
             <h2 className="text-4xl font-bold mb-4">Selamat Datang Kembali!</h2>
@@ -55,19 +55,19 @@ export const Login = () => {
         </div>
 
         {/* Right Side - Login Form */}
-        <div className="w-full lg:w-1/2 p-12">
+        <div className="w-full lg:w-1/2 p-6 sm:p-8 md:p-10 lg:p-12">
           <div className="max-w-md mx-auto">
             {/* Logo Mobile */}
-            <div className="lg:hidden text-center mb-8">
-              <div className="text-6xl mb-4">🍽️</div>
-              <h2 className="text-3xl font-bold text-gray-900">FoodPlannerID</h2>
+            <div className="lg:hidden text-center mb-6 sm:mb-8">
+              <div className="text-5xl sm:text-6xl mb-3 sm:mb-4">🍽️</div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">FoodPlannerID</h2>
             </div>
 
-            <div className="mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">
+            <div className="mb-6 sm:mb-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
                 Masuk ke Akun Anda
               </h2>
-              <p className="text-gray-600">
+              <p className="text-sm sm:text-base text-gray-600">
                 Belum punya akun?{' '}
                 <Link to="/register" className="text-green-600 hover:text-green-700 font-semibold">
                   Daftar di sini
