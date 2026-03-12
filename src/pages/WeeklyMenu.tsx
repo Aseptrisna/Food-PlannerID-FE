@@ -16,7 +16,13 @@ export const WeeklyMenu = () => {
       try {
         setLoading(true);
         const data = await menuService.getWeeklyMenu();
-        setMenus(data);
+
+        // Filter out menus with old structure
+        const validMenus = data.filter(menu =>
+          menu.breakfast?.main && menu.lunch?.main && menu.dinner?.main
+        );
+
+        setMenus(validMenus);
       } catch (err: any) {
         setError('Gagal memuat menu mingguan. Silakan coba lagi.');
       } finally {
@@ -148,7 +154,7 @@ export const WeeklyMenu = () => {
                       {menu.breakfast.alternatives.length > 0 && (
                         <div className="pt-3 border-t">
                           <p className="text-xs text-gray-500 font-semibold mb-1">Alternatif:</p>
-                          {menu.breakfast.alternatives.map((alt, idx) => (
+                          {menu.breakfast.alternatives?.map((alt, idx) => (
                             <p key={idx} className="text-xs text-gray-600 truncate">
                               • {alt.menu}
                             </p>
@@ -174,7 +180,7 @@ export const WeeklyMenu = () => {
                       {menu.lunch.alternatives.length > 0 && (
                         <div className="pt-3 border-t">
                           <p className="text-xs text-gray-500 font-semibold mb-1">Alternatif:</p>
-                          {menu.lunch.alternatives.map((alt, idx) => (
+                          {menu.lunch.alternatives?.map((alt, idx) => (
                             <p key={idx} className="text-xs text-gray-600 truncate">
                               • {alt.menu}
                             </p>
@@ -200,7 +206,7 @@ export const WeeklyMenu = () => {
                       {menu.dinner.alternatives.length > 0 && (
                         <div className="pt-3 border-t">
                           <p className="text-xs text-gray-500 font-semibold mb-1">Alternatif:</p>
-                          {menu.dinner.alternatives.map((alt, idx) => (
+                          {menu.dinner.alternatives?.map((alt, idx) => (
                             <p key={idx} className="text-xs text-gray-600 truncate">
                               • {alt.menu}
                             </p>

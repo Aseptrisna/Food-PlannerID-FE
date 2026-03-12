@@ -17,6 +17,9 @@ export const TodayMenu = () => {
       setLoading(true);
       setError('');
       const data = await menuService.getTodayMenu();
+
+      console.log('Menu data received:', data); // Debug log
+
       setMenu(data);
     } catch (err: any) {
       if (err.response?.status === 404) {
@@ -139,29 +142,30 @@ export const TodayMenu = () => {
           {menu ? (
             <div className="space-y-8">
               {/* Breakfast */}
-              <div className="bg-white rounded-xl shadow-lg p-6 border-t-4 border-orange-400">
-                <div className="flex items-center mb-6">
-                  <span className="text-4xl mr-3">🌅</span>
-                  <h2 className="text-3xl font-bold text-gray-900">Sarapan</h2>
-                </div>
-
-                {/* Main Recommendation */}
-                <div className="bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg p-5 mb-4 border-2 border-orange-200">
-                  <div className="flex items-center mb-2">
-                    <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                      ⭐ REKOMENDASI UTAMA
-                    </span>
+              {menu.breakfast?.main && (
+                <div className="bg-white rounded-xl shadow-lg p-6 border-t-4 border-orange-400">
+                  <div className="flex items-center mb-6">
+                    <span className="text-4xl mr-3">🌅</span>
+                    <h2 className="text-3xl font-bold text-gray-900">Sarapan</h2>
                   </div>
-                  <h3 className="text-2xl font-bold text-green-600 mb-2">{menu.breakfast.main.menu}</h3>
-                  <p className="text-gray-700 font-medium mb-1">📍 {menu.breakfast.main.restaurant}</p>
-                  <p className="text-gray-600 mb-3 text-sm">{menu.breakfast.main.address}</p>
-                  <button
-                    onClick={() => viewOnMap(menu.breakfast.main)}
-                    className="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg font-semibold shadow-md transform hover:scale-105 transition-all"
-                  >
-                    🗺️ Lihat di Peta
-                  </button>
-                </div>
+
+                  {/* Main Recommendation */}
+                  <div className="bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg p-5 mb-4 border-2 border-orange-200">
+                    <div className="flex items-center mb-2">
+                      <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                        ⭐ REKOMENDASI UTAMA
+                      </span>
+                    </div>
+                    <h3 className="text-2xl font-bold text-green-600 mb-2">{menu.breakfast.main.menu}</h3>
+                    <p className="text-gray-700 font-medium mb-1">📍 {menu.breakfast.main.restaurant}</p>
+                    <p className="text-gray-600 mb-3 text-sm">{menu.breakfast.main.address}</p>
+                    <button
+                      onClick={() => viewOnMap(menu.breakfast.main)}
+                      className="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg font-semibold shadow-md transform hover:scale-105 transition-all"
+                    >
+                      🗺️ Lihat di Peta
+                    </button>
+                  </div>
 
                 {/* Alternatives */}
                 <div className="mt-4">
@@ -169,7 +173,7 @@ export const TodayMenu = () => {
                     Pilihan Lain:
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {menu.breakfast.alternatives.map((alt, index) => (
+                    {menu.breakfast.alternatives?.map((alt, index) => (
                       <div key={index} className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-green-300 hover:shadow-md transition-all">
                         <h4 className="font-bold text-gray-800 mb-1">{alt.menu}</h4>
                         <p className="text-sm text-gray-600 mb-1">📍 {alt.restaurant}</p>
@@ -185,9 +189,11 @@ export const TodayMenu = () => {
                   </div>
                 </div>
               </div>
+              )}
 
               {/* Lunch */}
-              <div className="bg-white rounded-xl shadow-lg p-6 border-t-4 border-blue-400">
+              {menu.lunch?.main && (
+                <div className="bg-white rounded-xl shadow-lg p-6 border-t-4 border-blue-400">
                 <div className="flex items-center mb-6">
                   <span className="text-4xl mr-3">☀️</span>
                   <h2 className="text-3xl font-bold text-gray-900">Makan Siang</h2>
@@ -217,7 +223,7 @@ export const TodayMenu = () => {
                     Pilihan Lain:
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {menu.lunch.alternatives.map((alt, index) => (
+                    {menu.lunch.alternatives?.map((alt, index) => (
                       <div key={index} className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-green-300 hover:shadow-md transition-all">
                         <h4 className="font-bold text-gray-800 mb-1">{alt.menu}</h4>
                         <p className="text-sm text-gray-600 mb-1">📍 {alt.restaurant}</p>
@@ -233,9 +239,11 @@ export const TodayMenu = () => {
                   </div>
                 </div>
               </div>
+              )}
 
               {/* Dinner */}
-              <div className="bg-white rounded-xl shadow-lg p-6 border-t-4 border-purple-400">
+              {menu.dinner?.main && (
+                <div className="bg-white rounded-xl shadow-lg p-6 border-t-4 border-purple-400">
                 <div className="flex items-center mb-6">
                   <span className="text-4xl mr-3">🌙</span>
                   <h2 className="text-3xl font-bold text-gray-900">Makan Malam</h2>
@@ -265,7 +273,7 @@ export const TodayMenu = () => {
                     Pilihan Lain:
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {menu.dinner.alternatives.map((alt, index) => (
+                    {menu.dinner.alternatives?.map((alt, index) => (
                       <div key={index} className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-green-300 hover:shadow-md transition-all">
                         <h4 className="font-bold text-gray-800 mb-1">{alt.menu}</h4>
                         <p className="text-sm text-gray-600 mb-1">📍 {alt.restaurant}</p>
@@ -281,6 +289,7 @@ export const TodayMenu = () => {
                   </div>
                 </div>
               </div>
+              )}
 
               {/* Regenerate Menu */}
               <div className="bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 rounded-xl p-6 mt-8">
