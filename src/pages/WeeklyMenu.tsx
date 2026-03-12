@@ -132,36 +132,81 @@ export const WeeklyMenu = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Breakfast */}
-                    <div className="border rounded-lg p-4">
-                      <div className="flex items-center mb-2">
+                    <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                      <div className="flex items-center mb-3">
                         <span className="text-2xl mr-2">🌅</span>
                         <h3 className="font-bold text-gray-900">Sarapan</h3>
                       </div>
-                      <p className="font-semibold text-green-600 mb-1">{menu.breakfast.menu}</p>
-                      <p className="text-sm text-gray-600">{menu.breakfast.restaurant}</p>
-                      <p className="text-xs text-gray-500 mt-1">{menu.breakfast.address}</p>
+                      <div className="mb-3">
+                        <span className="inline-block bg-orange-100 text-orange-800 text-xs px-2 py-0.5 rounded mb-2">
+                          ⭐ Utama
+                        </span>
+                        <p className="font-semibold text-green-600 mb-1">{menu.breakfast.main.menu}</p>
+                        <p className="text-sm text-gray-600">{menu.breakfast.main.restaurant}</p>
+                        <p className="text-xs text-gray-500 mt-1">{menu.breakfast.main.address}</p>
+                      </div>
+                      {menu.breakfast.alternatives.length > 0 && (
+                        <div className="pt-3 border-t">
+                          <p className="text-xs text-gray-500 font-semibold mb-1">Alternatif:</p>
+                          {menu.breakfast.alternatives.map((alt, idx) => (
+                            <p key={idx} className="text-xs text-gray-600 truncate">
+                              • {alt.menu}
+                            </p>
+                          ))}
+                        </div>
+                      )}
                     </div>
 
                     {/* Lunch */}
-                    <div className="border rounded-lg p-4">
-                      <div className="flex items-center mb-2">
+                    <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                      <div className="flex items-center mb-3">
                         <span className="text-2xl mr-2">☀️</span>
                         <h3 className="font-bold text-gray-900">Makan Siang</h3>
                       </div>
-                      <p className="font-semibold text-green-600 mb-1">{menu.lunch.menu}</p>
-                      <p className="text-sm text-gray-600">{menu.lunch.restaurant}</p>
-                      <p className="text-xs text-gray-500 mt-1">{menu.lunch.address}</p>
+                      <div className="mb-3">
+                        <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded mb-2">
+                          ⭐ Utama
+                        </span>
+                        <p className="font-semibold text-green-600 mb-1">{menu.lunch.main.menu}</p>
+                        <p className="text-sm text-gray-600">{menu.lunch.main.restaurant}</p>
+                        <p className="text-xs text-gray-500 mt-1">{menu.lunch.main.address}</p>
+                      </div>
+                      {menu.lunch.alternatives.length > 0 && (
+                        <div className="pt-3 border-t">
+                          <p className="text-xs text-gray-500 font-semibold mb-1">Alternatif:</p>
+                          {menu.lunch.alternatives.map((alt, idx) => (
+                            <p key={idx} className="text-xs text-gray-600 truncate">
+                              • {alt.menu}
+                            </p>
+                          ))}
+                        </div>
+                      )}
                     </div>
 
                     {/* Dinner */}
-                    <div className="border rounded-lg p-4">
-                      <div className="flex items-center mb-2">
+                    <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                      <div className="flex items-center mb-3">
                         <span className="text-2xl mr-2">🌙</span>
                         <h3 className="font-bold text-gray-900">Makan Malam</h3>
                       </div>
-                      <p className="font-semibold text-green-600 mb-1">{menu.dinner.menu}</p>
-                      <p className="text-sm text-gray-600">{menu.dinner.restaurant}</p>
-                      <p className="text-xs text-gray-500 mt-1">{menu.dinner.address}</p>
+                      <div className="mb-3">
+                        <span className="inline-block bg-purple-100 text-purple-800 text-xs px-2 py-0.5 rounded mb-2">
+                          ⭐ Utama
+                        </span>
+                        <p className="font-semibold text-green-600 mb-1">{menu.dinner.main.menu}</p>
+                        <p className="text-sm text-gray-600">{menu.dinner.main.restaurant}</p>
+                        <p className="text-xs text-gray-500 mt-1">{menu.dinner.main.address}</p>
+                      </div>
+                      {menu.dinner.alternatives.length > 0 && (
+                        <div className="pt-3 border-t">
+                          <p className="text-xs text-gray-500 font-semibold mb-1">Alternatif:</p>
+                          {menu.dinner.alternatives.map((alt, idx) => (
+                            <p key={idx} className="text-xs text-gray-600 truncate">
+                              • {alt.menu}
+                            </p>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
